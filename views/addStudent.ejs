@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Add New Student</h1>
+        <nav>
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/students">View Students</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="/admin/students/add" method="POST">
+            <div>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id" required>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <button type="submit">Add Student</button>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 Student Attendance Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Attendance Report</title>
+</head>
+<body>
+    <h1>Generate Attendance Report</h1>
+
+    <form action="/teacher/attendance/report/generate" method="POST"> <!-- Updated form action -->
+        <label for="subject">Select Subject:</label>
+        <select name="subjectId" id="subject" required>
+            <% subjects.forEach(subject => { %>
+                <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+            <% }); %>
+        </select>
+        <br>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" name="startDate" id="startDate" required>
+        <br>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" name="endDate" id="endDate" required>
+        <br>
+
+        <button type="submit">Generate Report</button>
+    </form>
+
+    <% if (reportData && reportData.length > 0) { %> <!-- Check if reportData exists and has records -->
+        <h2>Attendance Report</h2>
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+            <% reportData.forEach(record => { %>
+                <tr>
+                    <td><%= record.date %></td>
+                    <td><%= record.name %></td>
+                    <td><%= record.subject_name %></td>
+                    <td><%= record.status %></td>
+                </tr>
+            <% }); %>
+        </table>
+        <br>
+        <form action="/teacher/report/download" method="POST"> <!-- Update the action to the correct route -->
+            <input type="hidden" name="startDate" value="<%= reportData[0].date %>">
+            <input type="hidden" name="endDate" value="<%= reportData[reportData.length - 1].date %>">
+            <input type="hidden" name="subjectId" value="<%= reportData[0].subject_id %>">
+            <button type="submit">Download PDF Report</button>
+        </form>
+    <% } else { %>
+        <p>No attendance records found for this date range.</p>
+    <% } %>
+</body>
+</html>

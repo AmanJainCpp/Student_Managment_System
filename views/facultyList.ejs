@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty List</title>
+</head>
+<body>
+    <h1>Faculty List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Faculty ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% faculty.forEach(member => { %>
+            <tr>
+                <td><%= member.faculty_id %></td>
+                <td><%= member.name %></td>
+                <td><%= member.username %></td>
+                <td><%= member.email %></td>
+                <td>
+                    <form action="/admin/faculty/delete/<%= member.faculty_id %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mark Attendance</title>
+</head>
+<body>
+    <h1>Mark Attendance</h1>
+    <form action="/attendance/mark" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Status (Present/Absent)</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% students.forEach(student => { %>
+                    <tr>
+                        <td><%= student.name %></td>
+                        <td>
+                            <select name="attendanceData[<%= student.id %>][status]">
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                            </select>
+                            <input type="hidden" name="attendanceData[<%= student.id %>][studentId]" value="<%= student.id %>">
+                        </td>
+                        <td>
+                            <!-- Calendar input for date selection -->
+                            <input type="date" name="attendanceData[<%= student.id %>][date]" value="<%= new Date().toISOString().slice(0, 10) %>">
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <label for="subject">Select Subject:</label>
+        <select name="subjectId" id="subject">
+            <% subjects.forEach(subject => { %>
+                <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+            <% }) %>
+        </select>
+
+        <button type="submit">Submit Attendance</button>
+    </form>
+</body>
+</html>

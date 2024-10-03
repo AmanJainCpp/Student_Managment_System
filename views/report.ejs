@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendance Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reportData.forEach(record => { %>
+                <tr>
+                    <td><%= record.date %></td>
+                    <td><%= record.name %></td>
+                    <td><%= record.subject_name %></td>
+                    <td><%= record.status %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <!-- Button to download the PDF -->
+    <form action="/attendance/report/download" method="POST">
+        <input type="hidden" name="startDate" value="<%= reportData[0]?.date %>"> <!-- Or set the correct start date -->
+        <input type="hidden" name="endDate" value="<%= reportData[reportData.length - 1]?.date %>"> <!-- Or set the correct end date -->
+        <input type="hidden" name="subjectId" value="<%= reportData[0]?.subject_id %>"> <!-- Or set the correct subject ID -->
+        <button type="submit">Download PDF</button>
+    </form>
+</body>
+</html>
